@@ -1,0 +1,31 @@
+#!/bin/bash
+#SBATCH --job-name=CIN5Cellranger
+#SBATCH --output=CIN5Cellranger_output.txt
+#SBATCH --error=CIN5Cellranger_error.txt
+#SBATCH --partition=krasnow
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=10
+#SBATCH --mem=64G
+#SBATCH --time=48:00:00
+#SBATCH --mail-user=annie999@stanford.edu
+#SBATCH --mail-type=BEGIN,END,FAIL
+
+# Load any necessary modules (if required)
+module spider cellranger
+
+# Save directories for all cellranger input
+mouse_dir="/oak/stanford/groups/krasnow/ATN/CIN1_CellRangerFiles/refdata-gex-GRCm39-2024-A"
+fastq_dir="fastqs=/oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample"
+
+# Change directory to where the fastq files are located
+cd /oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample
+
+# Run CellRanger count command
+/oak/stanford/groups/krasnow/ATN/CIN1_CellRangerFiles/cellranger-8.0.0/cellranger count \
+ --id=ATNAlignedReadsCIN5 \
+ --transcriptome=mouse_dir \
+ --fastqs=fastq_dir \
+ --sample=CIN_1 \
+ --create-bam=true \
+ --localcores=10 \
+ --localmem=64
