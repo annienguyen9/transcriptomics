@@ -1,0 +1,47 @@
+### nano CIN1CellRanger.sh
+```
+#!/bin/bash
+#SBATCH --job-name=CINCellranger
+#SBATCH --output=CINCellranger_output.txt
+#SBATCH --error=CINCellranger_error.txt
+#SBATCH --partition=krasnow
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
+#SBATCH --mem=64G
+#SBATCH --time=24:00:00
+
+# Load any necessary modules (if required)
+module spider cellranger
+
+# Change directory to where the fastq files are located
+cd /oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample
+
+# Run CellRanger count command
+cellranger count \
+  --id=ATNAlignedReads \
+  --transcriptome=/oak/stanford/groups/krasnow/ATN/CIN1_CellRangerFiles/refdata-gex-GRCm39-2024-A \
+  --fastqs=/oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample \
+  --sample=CIN \
+  --create-bam=true
+```
+
+### CINCellranger_error.txt
+```
+/var/spool/slurmd/job45386215/slurm_script: line 18: cellranger: command not found
+```
+
+### 	CINCellranger_output.txt
+```
+----------------------------------------------------------------------------
+  cellranger: cellranger/7.1.0
+----------------------------------------------------------------------------
+    Description:
+      Cell Ranger is a set of analysis pipelines that process Chromium
+      single-cell RNA-seq output to align reads, generate gene-cell
+      matrices and perform clustering and gene expression analysis.
+
+
+    You will need to load all module(s) on any one of the lines below before the "cellranger/7.1.0" module is available to load.
+
+      biology
+```
