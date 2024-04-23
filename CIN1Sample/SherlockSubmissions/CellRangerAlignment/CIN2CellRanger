@@ -1,0 +1,26 @@
+### nano CIN2CellRanger.sh
+```
+#!/bin/bash
+#SBATCH --job-name=CINCellranger
+#SBATCH --output=CINCellranger_output.txt
+#SBATCH --error=CINCellranger_error.txt
+#SBATCH --partition=krasnow
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
+#SBATCH --mem=64G
+#SBATCH --time=24:00:00
+
+# Load any necessary modules (if required)
+module spider cellranger
+
+# Change directory to where the fastq files are located
+cd /oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample
+
+# Run CellRanger count command
+/oak/stanford/groups/krasnow/ATN/CIN1_CellRangerFiles/cellranger-8.0.0/cellranger count \
+  --id=ATNAlignedReads \
+  --transcriptome=/oak/stanford/groups/krasnow/ATN/CIN1_CellRangerFiles/refdata-gex-GRCm39-2024-A \
+  --fastqs=/oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample \
+  --sample=CIN \
+  --create-bam=true
+```
