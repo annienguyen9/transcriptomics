@@ -1,0 +1,39 @@
+### nano CINCellRanger
+```
+#!/bin/bash
+#SBATCH --job-name=cellranger_count
+#SBATCH --output=cellranger_count_%j.out
+#SBATCH --error=cellranger_count_%j.err
+#SBATCH --partition=normal
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
+#SBATCH --mem=32G
+#SBATCH --time=24:00:00
+
+module load cellranger
+
+cellranger count \
+  --id=ATNAlignedReads \
+  --transcriptome=/home/users/annie999/yard/apps \
+  --fastqs=/oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample \
+  --sample=CIN
+```
+
+### Error 1
+```
+Lmod has detected the following error: These module(s) or extension(s) exist
+but cannot be loaded as requested: "cellranger"
+   Try: "module spider cellranger" to see how to load the module(s).
+
+
+
+error: the following required arguments were not provided:
+  --create-bam <true|false>
+
+Usage: cellranger count --id <ID> --transcriptome <PATH> --create-bam <true|false> --fastqs <PATH> --sample <PREFIX>
+
+For more information, try '--help'.
+```
+
+### Error 2
+```
