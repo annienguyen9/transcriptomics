@@ -1,1 +1,25 @@
+#!/bin/bash
+#SBATCH --job-name=CIN1CellRangertdT1
+#SBATCH --output=/scratch/users/annie999/CIN1CellRangertdT1_output.txt
+#SBATCH --error=/scratch/users/annie999/CIN1CellRangertdT1_error.txt
+#SBATCH --partition=krasnow
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=128
+#SBATCH --mem=64G
+#SBATCH --time=72:00:00
+#SBATCH --mail-user=annie999@stanford.edu
+#SBATCH --mail-type=BEGIN,END,FAIL
 
+# Change directory to where the fastq files are located
+cd /oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample
+
+# Run CellRanger count command
+/oak/stanford/groups/krasnow/ATN/CIN1_CellRangerFiles/cellranger-8.0.0/cellranger count \
+ --id=ATNAlignedReads_tdt1 \
+ --transcriptome=/scratch/users/annie999/MusmusculusAi9tdT_genome \
+ --fastqs=/oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample \
+ --sample=CIN_1 \
+ --create-bam=false \
+ --include-introns=true \
+ --localcores=128 \
+ --localmem=64
