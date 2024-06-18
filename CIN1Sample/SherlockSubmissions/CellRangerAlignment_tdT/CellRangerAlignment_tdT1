@@ -16,7 +16,7 @@ cd /oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample
 # Run CellRanger count command
 /oak/stanford/groups/krasnow/ATN/CIN1_CellRangerFiles/cellranger-8.0.0/cellranger count \
  --id=ATNAlignedReads_tdt1 \
- --transcriptome=/scratch/users/annie999/MusmusculusAi9tdT_genome \
+ --transcriptome=/oak/stanford/groups/krasnow/ATN/ReferenceGenometdT/MusmusculusAi9tdT_genome \
  --fastqs=/oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample \
  --sample=CIN_1 \
  --create-bam=false \
