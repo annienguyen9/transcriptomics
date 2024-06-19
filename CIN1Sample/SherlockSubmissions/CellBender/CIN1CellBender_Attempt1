@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=CIN1CellBenderA1
-#SBATCH --output=/scratch/users/annie999/CIN1CellBenderA1.txt
-#SBATCH --error=/scratch/users/annie999/CIN1CellBenderA1.txt
+#SBATCH --output=/scratch/users/annie999/CIN1CellBenderA1_output.txt
+#SBATCH --error=/scratch/users/annie999/CIN1CellBenderA1_error.txt
 #SBATCH --partition=krasnow
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=128
@@ -10,7 +10,6 @@
 #SBATCH --mail-user=annie999@stanford.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
 
-# Change directory to where the fastq files are located
 cd /oak/stanford/groups/krasnow/ATN/Conda
 
 # Load modules (if required by your system)
@@ -22,5 +21,5 @@ source activate CIN1
 # Run CellBender
 cellbender remove-background \
     --input /oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample/ATNAlignedReadsCIN6/outs/raw_feature_bc_matrix.h5 \
-    --output filtered_feature_bc_matrix.h5 \
+    --output CIN1CellBenderA1_output.h5 \
     --cuda
