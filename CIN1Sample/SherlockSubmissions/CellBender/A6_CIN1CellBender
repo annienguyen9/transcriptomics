@@ -1,0 +1,27 @@
+#!/bin/bash
+#SBATCH --job-name=A6cellbender                 # Job name
+#SBATCH --output=/scratch/users/annie999/A6cellbender_output.txt  # Output log file
+#SBATCH --error=/scratch/users/annie999/A6cellbender_error.txt    # Error log file
+#SBATCH --partition=krasnow                       # Partition to submit to
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=40
+#SBATCH --time=48:00:00                           # Maximum run time (48 hours)
+#SBATCH --mem=32G                                 # Memory request (64 GB)
+#SBATCH --mail-user=annie999@stanford.edu         # Email notifications
+#SBATCH --mail-type=BEGIN,END,FAIL                # Email notification types
+
+# Load necessary modules (adjust according to your environment)
+module spider anaconda
+
+# Activate your conda environment
+source activate A6cb_env
+
+# Create a checkpoint directory if it doesn't exist
+CHECKPOINT_DIR=/scratch/users/annie999/checkpointsA6
+mkdir -p $CHECKPOINT_DIR
+
+# Run CellBender with GPU
+cellbender remove-background \
+    --input /oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample/ATNAlignedReadsCIN6/outs/raw_feature_bc_matrix.h5 \
+    --output /scratch/users/annie999/A6cellbender.h5 \
+    --checkpoint $CHECKPOINT_DIR/ckpt.tar.gz
