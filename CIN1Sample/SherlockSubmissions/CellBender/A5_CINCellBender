@@ -2,8 +2,9 @@
 #SBATCH --job-name=A5cellbender                 # Job name
 #SBATCH --output=/scratch/users/annie999/A5cellbender_output.txt  # Output log file
 #SBATCH --error=/scratch/users/annie999/A5cellbender_error.txt    # Error log file
-#SBATCH --partition=krasnow                       # Partition to submit to
-#SBATCH --gres=gpu:1                              # Request 1 GPU
+#SBATCH --partition=owners                       # Partition to submit to
+#SBATCH --nodes=10
+#SBATCH --ntasks-per-node=10
 #SBATCH --time=48:00:00                           # Maximum run time (48 hours)
 #SBATCH --mem=32G                                 # Memory request (64 GB)
 #SBATCH --mail-user=annie999@stanford.edu         # Email notifications
