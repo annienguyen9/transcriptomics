@@ -1,0 +1,22 @@
+#!/bin/bash
+#SBATCH --job-name=A4_CIN1CellBender       # Job name
+#SBATCH --output=/scratch/users/annie999/A4_CIN1CellBender_output.txt  # Output $
+#SBATCH --error=/scratch/users/annie999/A4_CIN1CellBender_error.txt     # Error $
+#SBATCH --partition=krasnow              # Partition to submit to
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=30
+#SBATCH --time=48:00:00                  # Maximum run time (24 hours)
+#SBATCH --mem=32G                        # Memory request (32 GB)
+#SBATCH --mail-user=annie999@stanford.edu
+#SBATCH --mail-type=BEGIN,END,FAIL
+
+# Load necessary modules (adjust according to your environment)
+module spider anaconda
+
+# Activate your conda environment
+source activate cellbender
+
+# Run CellBender with GPU
+cellbender remove-background \
+    --input /oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample/ATNAlignedReads$
+    --output /scratch/users/annie999/A4_CIN1CellBender_output.h5
