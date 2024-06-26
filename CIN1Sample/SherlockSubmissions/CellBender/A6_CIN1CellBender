@@ -18,6 +18,7 @@ mkdir -p $CHECKPOINT_DIR
 
 # Run CellBender with GPU
 cellbender remove-background \
+    --cuda
     --input /oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample/ATNAlignedReadsCIN6/outs/raw_feature_bc_matrix.h5 \
     --output /scratch/users/annie999/A6cellbender.h5 \
     --checkpoint $CHECKPOINT_DIR/ckpt.tar.gz
