@@ -1,0 +1,35 @@
+#!/bin/bash
+#SBATCH --job-name=A8cellbender                 # Job name
+#SBATCH --error=/scratch/users/annie999/A8cellbender_error.txt    # Error log file
+#SBATCH --partition=krasnow                      # Partition to submit to
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=50
+#SBATCH --time=12:00:00                           # Maximum run time (48 hours)
+#SBATCH --mem=32G                                 # Memory request (64 GB)
+#SBATCH --mail-user=annie999@stanford.edu         # Email notifications
+#SBATCH --mail-type=BEGIN,END,FAIL                # Email notification types
+# Activate your conda environment
+source activate /scratch/users/annie999/conda/envs/cellbender
+# Define paths
+INPUT_FILE="/oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample/ATNAlignedReadsCIN6/outs/raw_feature_bc_matrix.$
+OUTPUT_FILE="/scratch/users/annie999/A8cellbender.h5"
+CHECKPOINT_DIR="/scratch/users/annie999/checkpointsA8"
+CHECKPOINT_FILE="/scratch/users/annie999/checkpointsA8/ckpt.tar.gz"
+
+# Create checkpoint directory if it doesn't exist
+mkdir -p ${CHECKPOINT_DIR}
+
+# Run CellBender command
+cellbender remove-background --input ${INPUT_FILE} --output ${OUTPUT_FILE} --checkpoint ${CHECKPOINT_FILE}
+
+# Check if the checkpoint file is saved in the wrong directory and move it
+if [ -f "/home/users/annie999/ckpt.tar.gz" ]; then
+    mv /home/users/annie999/ckpt.tar.gz ${CHECKPOINT_FILE}
+fi
+
+# Verify the checkpoint file exists in the correct directory
+if [ ! -f ${CHECKPOINT_FILE} ]; then
+    echo "Error: Checkpoint file was not saved correctly."
+    exit 1
+fi
+echo "Checkpoint file saved correctly at ${CHECKPOINT_FILE}."
