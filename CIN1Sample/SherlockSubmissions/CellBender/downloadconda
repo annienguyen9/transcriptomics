@@ -2,5 +2,21 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /s
 /miniconda.sh
 
 bash /scratch/users/annie999/miniconda.sh -b -p /scratch/users/annie999/conda
-PREFIX=/scratch/users/annie999/conda
+
+/scratch/users/annie999/conda/bin/conda init
+
+source ~/.bashrc  # or source ~/.zshrc for zsh users
+
+conda --version
+
+conda create -n cellbender python=3.7
+conda activate cellbender
+
+# Ensure torch is installed
+pip install torch
+
+# Install anndata
+pip install anndata
+
+cellbender $ pip install cellbender
 
