@@ -33,3 +33,35 @@ if [ ! -f ${CHECKPOINT_FILE} ]; then
     exit 1
 fi
 echo "Checkpoint file saved correctly at ${CHECKPOINT_FILE}."
+
+
+ERROR:
+cellbender:remove-background: Saved checkpoint as /scratch/users/annie999/ckpt.tar.gz
+cellbender:remove-background: [epoch 145]  average training loss: 2495.1449
+cellbender:remove-background: [epoch 145] average test loss: 2488.1925
+cellbender:remove-background: [epoch 146]  average training loss: 2494.9568
+cellbender:remove-background: [epoch 147]  average training loss: 2494.5445
+cellbender:remove-background: [epoch 148]  average training loss: 2494.8277
+cellbender:remove-background: Saving a checkpoint...
+cellbender:remove-background: Saved checkpoint as /scratch/users/annie999/ckpt.tar.gz
+cellbender:remove-background: [epoch 149]  average training loss: 2494.3523
+cellbender:remove-background: [epoch 150]  average training loss: 2494.7529
+cellbender:remove-background: [epoch 150] average test loss: 2483.4084
+cellbender:remove-background: Saving a checkpoint...
+cellbender:remove-background: Saved checkpoint as /scratch/users/annie999/ckpt.tar.gz
+cellbender:remove-background: 2024-06-27 18:08:59
+cellbender:remove-background: Inference procedure complete.
+Traceback (most recent call last):
+  File "/scratch/users/annie999/conda/envs/cellbender/bin/cellbender", line 8, in <module>
+    sys.exit(main())
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/cellbender/base_cli.py", line 118, in main
+    cli_dict[args.tool].run(args)
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/cellbender/remove_background/cli.py", line 185, in run
+    return main(args)
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/cellbender/remove_background/cli.py", line 230, in main
+    posterior = run_remove_background(args)
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/cellbender/remove_background/run.py", line 107, in run_remove_background
+    args=args,
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/cellbender/remove_background/posterior.py", line 60, in load_or_compute_posterior_and_save
+    f'Checkpoint file {args.input_checkpoint_tarball} does not exist, ' \
+AssertionError: Checkpoint file /scratch/users/annie999/checkpointsA8/ckpt.tar.gz/ckpt.tar.gz does not exist, presumably because saving of the checkpoint file has been manually interrupted. load_or_compute_posterior_and_save() will not work properly without an existing checkpoint file. Please re-run and allow a checkpoint file to be saved.
