@@ -12,6 +12,9 @@
 # Load conda environment setup
 source /scratch/users/annie999/conda/bin/activate
 
+# Activate your conda environment
+conda activate /scratch/users/annie999/conda/envs/cellbender
+
 # Define paths
 INPUT_FILE="/oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample/ATNAlignedReadsCIN6/outs/raw_feature_bc_matrix.h5"
 OUTPUT_FILE="A11cellbender.h5"
