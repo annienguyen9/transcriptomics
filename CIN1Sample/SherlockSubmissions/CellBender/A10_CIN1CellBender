@@ -1,0 +1,88 @@
+#!/bin/bash
+#SBATCH --job-name=A10cellbender                 # Job name
+#SBATCH --error=/scratch/users/annie999/A10cellbender_error.txt    # Error log file
+#SBATCH --partition=krasnow                      # Partition to submit to
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=50
+#SBATCH --time=12:00:00                           # Maximum run time (12 hours)
+#SBATCH --mem=32G                                 # Memory request (32 GB)
+#SBATCH --mail-user=annie999@stanford.edu         # Email notifications
+#SBATCH --mail-type=BEGIN,END,FAIL                # Email notification types
+# Load conda environment setup
+source /scratch/users/annie999/conda/bin/activate
+# Activate your conda environment
+conda activate /scratch/users/annie999/conda/envs/cellbender
+# Check if conda activate was successful
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to activate Conda environment"
+    exit 1
+fi
+# Verify cellbender installation
+which cellbender
+if [ $? -ne 0 ]; then
+    echo "Error: cellbender not found in the environment"
+    exit 1
+fi
+# Define paths
+INPUT_FILE="/oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample/ATNAlignedReadsCIN6/outs/raw_feature_bc_matrix.h5"
+OUTPUT_FILE="/scratch/users/annie999/A10cellbender.h5"
+CHECKPOINT_DIR="/scratch/users/annie999/checkpointsA10"
+CHECKPOINT_FILE="${CHECKPOINT_DIR}/ckpt.tar.gz"
+# Create checkpoint directory if it doesn't exist
+mkdir -p ${CHECKPOINT_DIR}
+# Debugging output for paths
+echo "INPUT_FILE=${INPUT_FILE}"
+echo "OUTPUT_FILE=${OUTPUT_FILE}"
+echo "CHECKPOINT_DIR=${CHECKPOINT_DIR}"
+echo "CHECKPOINT_FILE=${CHECKPOINT_FILE}"
+# Run CellBender command
+cellbender remove-background --input ${INPUT_FILE} --output ${OUTPUT_FILE} --checkpoint ${CHECKPOINT_FILE}
+# Check if the checkpoint file is saved in the wrong directory and move it
+if [ -f "/scratch/users/annie999/ckpt.tar.gz" ]; then
+    echo "Moving checkpoint file to ${CHECKPOINT_DIR}"
+    mv /scratch/users/annie999/ckpt.tar.gz ${CHECKPOINT_FILE}
+fi
+# Verify the checkpoint file exists in the correct directory
+if [ ! -f ${CHECKPOINT_FILE} ]; then
+    echo "Error: Checkpoint file was not saved correctly."
+    exit 1
+fi
+echo "Checkpoint file saved correctly at ${CHECKPOINT_DIR}."
+
+
+--------------------------------------------------------
+
+
+cellbender:remove-background: Saved checkpoint as /home/users/annie999/ckpt.tar.gz
+cellbender:remove-background: [epoch 141]  average training loss: 2495.3551
+cellbender:remove-background: [epoch 142]  average training loss: 2496.0211
+cellbender:remove-background: [epoch 143]  average training loss: 2497.8552
+cellbender:remove-background: [epoch 144]  average training loss: 2497.2712
+cellbender:remove-background: [epoch 145]  average training loss: 2495.1449
+cellbender:remove-background: [epoch 145] average test loss: 2488.1925
+cellbender:remove-background: Saving a checkpoint...
+cellbender:remove-background: Saved checkpoint as /home/users/annie999/ckpt.tar.gz
+cellbender:remove-background: [epoch 146]  average training loss: 2494.9568
+cellbender:remove-background: [epoch 147]  average training loss: 2494.5445
+cellbender:remove-background: [epoch 148]  average training loss: 2494.8277
+cellbender:remove-background: [epoch 149]  average training loss: 2494.3523
+cellbender:remove-background: [epoch 150]  average training loss: 2494.7529
+cellbender:remove-background: [epoch 150] average test loss: 2483.4084
+cellbender:remove-background: Saving a checkpoint...
+cellbender:remove-background: Saved checkpoint as /home/users/annie999/ckpt.tar.gz
+cellbender:remove-background: 2024-06-28 05:13:04
+cellbender:remove-background: Inference procedure complete.
+Traceback (most recent call last):
+  File "/scratch/users/annie999/conda/envs/cellbender/bin/cellbender", line 8, in <module>
+    sys.exit(main())
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/cellbender/base_cli.py", line 118, in main
+    cli_dict[args.tool].run(args)
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/cellbender/remove_background/cli.py", line 185, in run
+    return main(args)
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/cellbender/remove_background/cli.py", line 230, in main
+    posterior = run_remove_background(args)
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/cellbender/remove_background/run.py", line 107, in run_remove_background
+    args=args,
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/cellbender/remove_background/posterior.py", line 60, in load_or_compute_posterior_and_save
+    f'Checkpoint file {args.input_checkpoint_tarball} does not exist, ' \
+AssertionError: Checkpoint file /scratch/users/annie999/checkpointsA10/ckpt.tar.gz does not exist, presumably because saving of the checkpoint file has been manually interrupted. load_or_compute_posterior_and_save() will not work properly without an existing checkpoint file. Please re-run and allow a checkpoint file to be saved.
