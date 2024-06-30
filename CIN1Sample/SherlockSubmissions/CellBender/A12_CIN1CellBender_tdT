@@ -1,0 +1,33 @@
+performing on snRNA-seq data aligned to the tdt-inclusive mouse reference!
+
+---------------------------------------------------------------
+
+#!/bin/bash
+#SBATCH --job-name=A12cellbender                 # Job name
+#SBATCH --error=/scratch/users/annie999/A12cellbender_error.txt    # Error log file
+#SBATCH --partition=krasnow                      # Partition to submit to
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=60
+#SBATCH --time=12:00:00                           # Maximum run time (12 hours)
+#SBATCH --mem=32G                                 # Memory request (32 GB)
+#SBATCH --mail-user=annie999@stanford.edu         # Email notifications
+#SBATCH --mail-type=BEGIN,END,FAIL                # Email notification types
+
+# Load conda environment setup
+source /scratch/users/annie999/conda/bin/activate
+
+# Activate your conda environment
+conda activate /scratch/users/annie999/conda/envs/cellbender
+
+# Define paths
+INPUT_FILE="/oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample/ATNAlignedReads_tdt1/outs/raw_feature_bc_matrix.h5"
+OUTPUT_FILE="A12cellbender.h5"
+
+#move to folder containing the .h5 file
+cd /oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample/ATNAlignedReads_tdt1/outs
+
+# Create checkpoint directory if it doesn't exist
+mkdir -p ../clean_adata_tdTaligned
+
+# Run CellBender command
+cellbender remove-background --input ${INPUT_FILE} --output ../clean_adata_tdTaligned/${OUTPUT_FILE}
