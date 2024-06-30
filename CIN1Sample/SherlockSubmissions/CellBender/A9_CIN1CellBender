@@ -1,0 +1,65 @@
+#!/bin/bash
+#SBATCH --job-name=A9cellbender                 # Job name
+#SBATCH --error=/scratch/users/annie999/A9cellbender_error.txt    # Error log file
+#SBATCH --partition=krasnow                      # Partition to submit to
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=50
+#SBATCH --time=12:00:00                           # Maximum run time (48 hours)
+#SBATCH --mem=32G                                 # Memory request (64 GB)
+#SBATCH --mail-user=annie999@stanford.edu         # Email notifications
+#SBATCH --mail-type=BEGIN,END,FAIL                # Email notification types
+
+# Activate your conda environment
+source activate /scratch/users/annie999/conda/envs/cellbenderA9
+
+# Define paths
+INPUT_FILE="/oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample/ATNAlignedReadsCIN6/outs/raw_feature_bc_matrix.h5"
+OUTPUT_FILE="A9cellbender.h5"
+CHECKPOINT_DIR="/scratch/users/annie999/checkpointsA9"
+
+# Create checkpoint directory if it doesn't exist
+mkdir -p ${CHECKPOINT_DIR}
+
+# Run CellBender command
+cellbender remove-background 
+  --input ${INPUT_FILE} /
+  --output ${OUTPUT_FILE} 
+
+------------------------------------------------------------------------------------------------------------------
+
+/var/spool/slurmd/job49085987/slurm_script: line 13: activate: No such file or directory
+usage: cellbender remove-background [-h] --input INPUT_FILE --output
+                                    OUTPUT_FILE [--cuda]
+                                    [--checkpoint INPUT_CHECKPOINT_TARBALL]
+                                    [--expected-cells EXPECTED_CELL_COUNT]
+                                    [--total-droplets-included TOTAL_DROPLETS]
+                                    [--force-cell-umi-prior FORCE_CELL_UMI_PRIOR]
+                                    [--force-empty-umi-prior FORCE_EMPTY_UMI_PRIOR]
+                                    [--model {naive,simple,ambient,swapping,full}]
+                                    [--epochs EPOCHS]
+                                    [--low-count-threshold LOW_COUNT_THRESHOLD]
+                                    [--z-dim Z_DIM]
+                                    [--z-layers Z_HIDDEN_DIMS [Z_HIDDEN_DIMS ...]]
+                                    [--training-fraction TRAINING_FRACTION]
+                                    [--empty-drop-training-fraction FRACTION_EMPTIES]
+                                    [--ignore-features BLACKLISTED_GENES [BLACKLISTED_GENES ...]]
+                                    [--fpr FPR [FPR ...]]
+                                    [--exclude-feature-types EXCLUDE_FEATURES [EXCLUDE_FEATURES ...]]
+                                    [--projected-ambient-count-threshold AMBIENT_COUNTS_IN_CELLS_LOW_LIMIT]
+                                    [--learning-rate LEARNING_RATE]
+                                    [--checkpoint-mins CHECKPOINT_MIN]
+                                    [--final-elbo-fail-fraction FINAL_ELBO_FAIL_FRACTION]
+                                    [--epoch-elbo-fail-fraction EPOCH_ELBO_FAIL_FRACTION]
+                                    [--num-training-tries NUM_TRAINING_TRIES]
+                                    [--learning-rate-retry-mult LEARNING_RATE_RETRY_MULT]
+                                    [--posterior-batch-size POSTERIOR_BATCH_SIZE]
+                                    [--posterior-regularization {PRq,PRmu,PRmu_gene}]
+                                    [--alpha PRQ_ALPHA] [--q CDF_THRESHOLD_Q]
+                                    [--estimator {map,mean,cdf,sample,mckp}]
+                                    [--estimator-multiple-cpu]
+                                    [--constant-learning-rate]
+                                    [--cpu-threads N_THREADS] [--debug]
+                                    [--truth TRUTH_FILE]
+cellbender remove-background: error: the following arguments are required: --input, --output
+/var/spool/slurmd/job49085987/slurm_script: line 25: --input: command not found
+/var/spool/slurmd/job49085987/slurm_script: line 26: --output: command not found
