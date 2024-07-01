@@ -31,3 +31,75 @@ mkdir -p ../clean_adata_tdTaligned
 
 # Run CellBender command
 cellbender remove-background --input ${INPUT_FILE} --output ../clean_adata_tdTaligned/${OUTPUT_FILE}
+
+---------------------------------------------------------------
+
+cellbender:remove-background: Working on chunk (66/68)
+cellbender:remove-background: Working on chunk (67/68)
+cellbender:remove-background: Working on chunk (68/68)
+cellbender:remove-background: Writing full posterior to ../clean_adata_tdTaligned/A12cellbender_posterior.h5
+cellbender:remove-background: Succeeded in writing posterior to file ../clean_adata_tdTaligned/A12cellbender_posterior.h5
+cellbender:remove-background: Added posterior object to checkpoint file.
+cellbender:remove-background: 2024-07-01 03:20:23
+
+cellbender:remove-background: Saved summary plots as ../clean_adata_tdTaligned/A12cellbender.pdf
+cellbender:remove-background: Saved cell barcodes in ../clean_adata_tdTaligned/A12cellbender_cell_barcodes.csv
+cellbender:remove-background: Computing target noise counts per gene for MCKP estimator
+cellbender:remove-background: Using MCKP noise targets computed for FPR 0.01
+cellbender:remove-background: Computing denoised counts using mckp estimator
+cellbender:remove-background: Working on chunk (1/6)
+cellbender:remove-background:     [1.68 mins per chunk]
+cellbender:remove-background: Working on chunk (2/6)
+cellbender:remove-background: Working on chunk (3/6)
+cellbender:remove-background: Working on chunk (4/6)
+cellbender:remove-background: Working on chunk (5/6)
+cellbender:remove-background: Working on chunk (6/6)
+cellbender:remove-background: 2024-07-01 03:31:21 Total MCKP estimation time = 623.19 sec
+cellbender:remove-background: Succeeded in writing CellRanger format output to file ../clean_adata_tdTaligned/A12cellbender.h5
+cellbender:remove-background: Succeeded in writing CellRanger format output to file ../clean_adata_tdTaligned/A12cellbender_filtered.h5
+cellbender:remove-background: Saved output metrics as ../clean_adata_tdTaligned/A12cellbender_metrics.csv
+Traceback (most recent call last):
+  File "/scratch/users/annie999/conda/envs/cellbender/bin/jupyter-nbconvert", line 5, in <module>
+    from nbconvert.nbconvertapp import main
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/nbconvert/__init__.py", line 5, in <module>
+    from .exporters import *
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/nbconvert/exporters/__init__.py", line 1, in <module>
+    from .asciidoc import ASCIIDocExporter
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/nbconvert/exporters/asciidoc.py", line 9, in <module>
+    from .templateexporter import TemplateExporter
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/nbconvert/exporters/templateexporter.py", line 25, in <module>
+    from lxml.html.clean import clean_html
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/lxml/html/clean.py", line 21, in <module>
+    ) from None
+ImportError: lxml.html.clean module is now a separate project lxml_html_clean.
+Install lxml[html_clean] or lxml_html_clean directly.
+Traceback (most recent call last):
+  File "/scratch/users/annie999/conda/envs/cellbender/bin/jupyter-nbconvert", line 5, in <module>
+    from nbconvert.nbconvertapp import main
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/nbconvert/__init__.py", line 5, in <module>
+    from .exporters import *
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/nbconvert/exporters/__init__.py", line 1, in <module>
+    from .asciidoc import ASCIIDocExporter
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/nbconvert/exporters/asciidoc.py", line 9, in <module>
+    from .templateexporter import TemplateExporter
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/nbconvert/exporters/templateexporter.py", line 25, in <module>
+    from lxml.html.clean import clean_html
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/lxml/html/clean.py", line 21, in <module>
+    ) from None
+ImportError: lxml.html.clean module is now a separate project lxml_html_clean.
+Install lxml[html_clean] or lxml_html_clean directly.
+mv: cannot stat ‘tmp.report.nbconvert.html’: No such file or directory
+rm: cannot remove ‘tmp.report.nbconvert.ipynb’: No such file or directory
+cellbender:remove-background: Unable to create report.
+cellbender:remove-background: Traceback (most recent call last):
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/cellbender/remove_background/run.py", line 351, in compute_output_denoised_counts_reports_metrics
+    output=html_report_file,
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/cellbender/remove_background/report.py", line 82, in run_notebook_make_html
+    title=('CellBender: ' + os.path.basename(output).replace('_report.html', '')),
+  File "/scratch/users/annie999/conda/envs/cellbender/lib/python3.7/site-packages/cellbender/remove_background/report.py", line 59, in _postprocess_html
+    with open(file, mode='r') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '../clean_adata_tdTaligned/A12cellbender_report.html'
+
+cellbender:remove-background: Completed remove-background.
+cellbender:remove-background: 2024-07-01 03:31:39
+
