@@ -1,3 +1,6 @@
+remember to follow directions in "download conda" file in CellBender folder to set up conda environment
+____________________________________________________________________________________________________________________________________-
+
 #!/bin/bash
 #SBATCH --job-name=A1cellbenderwtdT               # Job name
 #SBATCH --error=/scratch/users/annie999/A1cellbenderwtdT.txt    # Error log file
@@ -27,3 +30,6 @@ mkdir -p ../clean_adata
 
 # Run CellBender command
 cellbender remove-background --input ${INPUT_FILE} --output ../clean_adata/${OUTPUT_FILE}
+
+____________________________________________________________________________________________________________________________________-
+
