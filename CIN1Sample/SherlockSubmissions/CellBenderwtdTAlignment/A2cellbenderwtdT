@@ -1,9 +1,9 @@
-remember to follow directions in "download conda" file in CellBender folder to set up conda environment
+same code as A1cellbenderwtdT.sh, but made sure to download "conda create -n cellbender python=3.7" to ensure correct version of python
 ____________________________________________________________________________________________________________________________________-
 
 #!/bin/bash
-#SBATCH --job-name=A1cellbenderwtdT               # Job name
-#SBATCH --error=/scratch/users/annie999/A1cellbenderwtdT.txt    # Error log file
+#SBATCH --job-name=A2cellbenderwtdT               # Job name
+#SBATCH --error=/scratch/users/annie999/A2cellbenderwtdT.txt    # Error log file
 #SBATCH --partition=krasnow                      # Partition to submit to
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=60
@@ -20,7 +20,7 @@ conda activate /scratch/users/annie999/conda/envs/cellbender
 
 # Define paths
 INPUT_FILE="/oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample/ATNAlignedReads_tdt1/outs/raw_feature_bc_matrix.h5"
-OUTPUT_FILE="A1cellbenderwtdT.h5"
+OUTPUT_FILE="A2cellbenderwtdT.h5"
 
 #move to folder containing the .h5 file
 cd /oak/stanford/groups/krasnow/ATN/snRNAseq_CIN1sample/ATNAlignedReads_tdt1/outs
